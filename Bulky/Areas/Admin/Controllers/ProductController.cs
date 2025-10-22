@@ -35,6 +35,7 @@ namespace Bulky.Areas.Admin.Controllers
             {
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
+                TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index", "Product");
             }
             return View();

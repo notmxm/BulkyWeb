@@ -1,6 +1,6 @@
 ﻿@model List<Product>
 
-<div class="card shadow border-0 mt-4">
+<div class="card shadow border-0 my-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
@@ -26,56 +26,41 @@
                         Title
                     </th>
                     <th>
-                        Description
+                        ISBN
                     </th>
                     <th>
-                        ISBN
+                        Price
                     </th>
                     <th>
                         Author
                     </th>
                     <th>
-                        List Price
-                    </th>
-                    <th>
-                        Price 1-50
-                    </th>
-                    <th>
-                        Price 50+
-                    </th>
-                    <th>
-                        Price 100+
+                        Category
                     </th>
                     <th></th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var obj in Model.OrderBy(u => u.Title))
+                @foreach (var obj in Model)
                 {
                     <tr>
                         <td>@obj.Title</td>
                         <td>
-                            @obj.Description
-                        </td>
-                        <td>
                             @obj.ISBN
-                        </td>
-                        <td>
-                            @obj.Author
                         </td>
                         <td>
                             @obj.ListPrice
                         </td>
+
                         <td>
-                            @obj.Price
+                            @obj.Author
                         </td>
+
                         <td>
-                            @obj.Price50
+                            
                         </td>
-                        <td>
-                            @obj.Price100
-                        </td>
+
 
                         <td>
                             <div class="w-75 btn-group" role="group">
