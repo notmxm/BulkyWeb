@@ -13,6 +13,7 @@ public class Repository<T> : IRepository<T> where T : class
     {
         _db = db;
         this.dbset = _db.Set<T>();
+        _db.Products.Include(u => u.Category).Include(u => u.CategoryId);
     }
 
     public void Add(T entity)
@@ -20,16 +21,34 @@ public class Repository<T> : IRepository<T> where T : class
         dbset.Add(entity);
     }
 
-    public T Get(System.Linq.Expressions.Expression<Func<T, bool>> filter)
+    public T Get(System.Linq.Expressions.Expression<Func<T, bool>> filter, string? includeProprieties = null)
     {
         IQueryable<T> query = dbset;
         query = query.Where(filter);
+        if (!string.IsNullOrEmpty(includeProprieties))
+        {
+            foreach (var includeProp in includeProprieties
+                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProp);
+            }
+        }
         return query.FirstOrDefault();
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<T> GetAll(string? includeProprieties = null)
     {
         IQueryable<T> query = dbset;
+
+        if (!string.IsNullOrEmpty(includeProprieties))
+        {
+            foreach (var includeProp in includeProprieties
+                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProp);
+            }
+        }
+
         return query.ToList();
     }
 
